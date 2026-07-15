@@ -13,7 +13,7 @@ metrics = PrometheusMetrics.for_app_factory()
 
 
 def create_app():
-     app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__, instance_relative_config=True)
 
     database_url = os.environ.get(
         "DATABASE_URL",
