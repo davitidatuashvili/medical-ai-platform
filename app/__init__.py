@@ -10,14 +10,32 @@ metrics = PrometheusMetrics.for_app_factory()
 
 def create_app():
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY="change-this-in-production",
-        SQLALCHEMY_DATABASE_URI="sqlite:///" + str(Path(app.instance_path) / "medical_ai.db"),
-        SQLALCHEMY_TRACK_MODIFICATIONS=False,
-        MAX_CONTENT_LENGTH=10 * 1024 * 1024,
-        UPLOAD_FOLDER=str(Path(app.root_path) / "static" / "uploads"),
+ database_url = os.environ.get(
+    "DATABASE_URL",
+    "sqlite:///" + str(Path(app.instance_path) / "medical_ai.db")
+)
+
+# ზოგი cloud provider PostgreSQL URL-ს postgres:// ფორმით იძლევა,
+# SQLAlchemy-ს კი postgresql:// სჭირდება.
+if database_url.startswith("postgres://"):
+    database_url = database_url.replace(
+        "postgres://",
+        "postgresql://",
+        1
     )
 
+app.config.from_mapping(
+    SECRET_KEY=os.environ.get(
+        "SECRET_KEY",
+        "development-secret-key"
+    ),
+    SQLALCHEMY_DATABASE_URI=database_url,
+    SQLALCHEMY_TRACK_MODIFICATIONS=False,
+    MAX_CONTENT_LENGTH=10 * 1024 * 1024,
+    UPLOAD_FOLDER=str(
+        Path(app.root_path) / "static" / "uploads"
+    ),
+)
     Path(app.instance_path).mkdir(parents=True, exist_ok=True)
     Path(app.config["UPLOAD_FOLDER"]).mkdir(parents=True, exist_ok=True)
 
