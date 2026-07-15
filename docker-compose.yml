@@ -1,0 +1,13 @@
+services:
+  medical-ai:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SECRET_KEY=replace-me
+    volumes:
+      - medical_ai_data:/app/instance
+      - medical_ai_uploads:/app/app/static/uploads
+volumes:
+  medical_ai_data:
+  medical_ai_uploads:

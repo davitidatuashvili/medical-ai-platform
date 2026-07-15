@@ -1,0 +1,18 @@
+{
+    "model_name": "eye_diseases_classifier",
+    "model_file": "eye_diseases_classifier.keras",
+    "architecture": "MobileNetV2",
+    "input_size": [
+        224,
+        224,
+        3
+    ],
+    "classes": [
+        "cataract",
+        "diabetic_retinopathy",
+        "glaucoma",
+        "normal"
+    ],
+    "output_activation": "softmax",
+    "preprocessing": "Rescaling from 0-255 to -1..1 inside the model"
+}

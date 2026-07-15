@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Medical AI Platform{% endblock %}
+{% block body %}
+<div class="landing">
+  <nav class="landing-nav">
+    <div class="logo"><span>AI</span> Medical AI Platform</div>
+    <div><a class="link-btn" href="{{ url_for('auth.login') }}">შესვლა</a><a class="primary-btn" href="{{ url_for('auth.register') }}">რეგისტრაცია</a></div>
+  </nav>
+  <section class="hero">
+    <div>
+      <span class="eyebrow">MULTI-SPECIALTY AI PLATFORM</span>
+      <h1>ოთხი სამედიცინო AI მოდელი ერთ პროფესიონალურ სისტემაში</h1>
+      <p>ოფთალმოლოგია, სტომატოლოგია, რადიოლოგია და დერმატოლოგია — ისტორია, PDF ანგარიშები და REST API.</p>
+      <a class="primary-btn big" href="{{ url_for('auth.register') }}">დაწყება</a>
+    </div>
+    <div class="hero-card">
+      <div>👁️ Ophthalmology</div><div>🦷 Dentistry</div><div>🩻 Radiology</div><div>🩺 Dermatology</div>
+    </div>
+  </section>
+</div>
+{% endblock %}

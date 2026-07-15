@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="shell">
+<aside class="sidebar"><div class="logo"><span>AI</span> Medical AI</div><nav><a href="/dashboard">Dashboard</a><a class="active" href="/history">History</a><a href="/logout">Logout</a></nav></aside>
+<main class="content"><header class="topbar"><div><span class="eyebrow">ANALYSIS HISTORY</span><h1>ანალიზების ისტორია</h1></div></header>
+<section class="panel"><table><thead><tr><th>ID</th><th>თარიღი</th><th>განყოფილება</th><th>პროგნოზი</th><th>Confidence</th><th>მოდელი</th><th></th></tr></thead><tbody>
+{% for a in analyses %}<tr><td>#{{ a.id }}</td><td>{{ a.created_at.strftime('%Y-%m-%d %H:%M') }}</td><td>{{ a.department }}</td><td>{{ a.prediction }}</td><td>{{ '%.2f'|format(a.confidence) }}%</td><td>{{ a.model_name }}</td><td><a href="/report/{{ a.id }}.pdf">PDF</a></td></tr>{% endfor %}
+</tbody></table></section></main></div>
+{% endblock %}

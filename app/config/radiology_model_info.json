@@ -1,0 +1,22 @@
+{
+    "model_name": "radiology_pneumonia_classifier",
+    "model_file": "radiology_pneumonia_classifier.keras",
+    "architecture": "MobileNetV2",
+    "input_size": [
+        224,
+        224,
+        3
+    ],
+    "classes": [
+        "NORMAL",
+        "PNEUMONIA"
+    ],
+    "class_mapping": {
+        "0": "NORMAL",
+        "1": "PNEUMONIA"
+    },
+    "output_activation": "sigmoid",
+    "loss": "binary_crossentropy",
+    "threshold": 0.5,
+    "preprocessing": "Rescaling from 0-255 to -1..1 inside the model"
+}

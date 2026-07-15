@@ -1,0 +1,20 @@
+{
+    "model_name": "dentistry_classifier",
+    "model_file": "dentistry_classifier.keras",
+    "architecture": "MobileNetV2",
+    "input_size": [
+        224,
+        224,
+        3
+    ],
+    "classes": [
+        "Caries",
+        "Gingivitis",
+        "Hypodontia",
+        "Mouth Ulcer",
+        "Tooth_discoloration_augmented"
+    ],
+    "output_activation": "softmax",
+    "loss": "sparse_categorical_crossentropy",
+    "preprocessing": "Rescaling from 0-255 to -1..1 inside the model"
+}

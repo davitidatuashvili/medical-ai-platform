@@ -1,0 +1,46 @@
+{
+  "ophthalmology": {
+    "name_ka": "ოფთალმოლოგია",
+    "name_en": "Ophthalmology",
+    "icon": "👁️",
+    "description": "თვალის დაავადებების ოთხკლასიანი კლასიფიკაცია.",
+    "accepted_image": "Fundus / eye image",
+    "model": "eye_diseases_classifier.keras",
+    "classes": "ophthalmology_class_names.json",
+    "info": "ophthalmology_model_info.json",
+    "accent": "#2563eb"
+  },
+  "dentistry": {
+    "name_ka": "სტომატოლოგია",
+    "name_en": "Dentistry",
+    "icon": "🦷",
+    "description": "სტომატოლოგიური მდგომარეობების ხუთკლასიანი კლასიფიკაცია.",
+    "accepted_image": "Dental / oral image",
+    "model": "dentistry_classifier.keras",
+    "classes": "dentistry_class_names.json",
+    "info": "dentistry_model_info.json",
+    "accent": "#0f766e"
+  },
+  "radiology": {
+    "name_ka": "რადიოლოგია",
+    "name_en": "Radiology",
+    "icon": "🩻",
+    "description": "Chest X-ray კლასიფიკაცია: Normal ან Pneumonia.",
+    "accepted_image": "Chest X-ray",
+    "model": "radiology_pneumonia_classifier.keras",
+    "classes": "radiology_class_names.json",
+    "info": "radiology_model_info.json",
+    "accent": "#7c3aed"
+  },
+  "dermatology": {
+    "name_ka": "დერმატოლოგია",
+    "name_en": "Dermatology",
+    "icon": "🩺",
+    "description": "კანის დაავადებების 22-კლასიანი კლასიფიკაცია Top-5 შედეგებით.",
+    "accepted_image": "Skin lesion / dermatology image",
+    "model": "dermatology_classifier_v2.keras",
+    "classes": "dermatology_class_names.json",
+    "info": "dermatology_model_info.json",
+    "accent": "#c2410c"
+  }
+}

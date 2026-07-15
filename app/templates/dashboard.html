@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+<div class="shell">
+  <aside class="sidebar">
+    <div class="logo"><span>AI</span> Medical AI</div>
+    <nav>
+      <a class="active" href="/dashboard">Dashboard</a>
+      <a href="/history">History</a>
+      <a href="/metrics">Metrics</a>
+      <a href="/logout">Logout</a>
+    </nav>
+    <div class="user-box">{{ current_user.name }}<small>{{ current_user.email }}</small></div>
+  </aside>
+  <main class="content">
+    <header class="topbar">
+      <div><span class="eyebrow">MEDICAL AI PLATFORM</span><h1>AI Analysis Dashboard</h1><p>აირჩიეთ განყოფილება და ატვირთეთ შესაბამისი სამედიცინო გამოსახულება.</p></div>
+      <div class="stat-pill">სულ ანალიზი: <b>{{ total }}</b></div>
+    </header>
+
+    <section class="dept-grid">
+      {% for d in departments %}
+      <button class="dept-card {% if loop.first %}selected{% endif %}" data-key="{{ d.key }}" style="--accent:{{ d.accent }}">
+        <span class="dept-icon">{{ d.icon }}</span>
+        <strong>{{ d.name_ka }}</strong>
+        <small>{{ d.architecture }} · {{ d.classes|length }} კლასი</small>
+      </button>
+      {% endfor %}
+    </section>
+
+    <section class="work-grid">
+      <article class="panel">
+        <div class="panel-title"><span>01</span><h2>სურათის ატვირთვა</h2></div>
+        <div id="departmentInfo" class="info-banner"></div>
+        <form id="predictForm">
+          <input id="imageInput" type="file" name="image" accept=".jpg,.jpeg,.png,.webp" hidden>
+          <label for="imageInput" id="dropZone" class="drop-zone"><b>＋</b><strong>აირჩიეთ ან ჩააგდეთ სურათი</strong><small>JPG, PNG ან WEBP · მაქს. 10 MB</small></label>
+          <div id="previewBox" class="preview hidden"><img id="previewImage"><div><strong id="fileName"></strong><small id="fileSize"></small></div></div>
+          <button id="analyzeBtn" class="primary-btn full" disabled>AI ანალიზის დაწყება</button>
+        </form>
+      </article>
+
+      <article class="panel result-panel">
+        <div class="panel-title"><span>02</span><h2>შედეგი</h2></div>
+        <div id="emptyResult" class="empty-result"><b>◎</b><strong>შედეგი ჯერ არ არის</strong><small>ატვირთეთ სურათი და დაიწყეთ ანალიზი.</small></div>
+        <div id="loadingResult" class="empty-result hidden"><div class="spinner"></div><strong>მოდელი ამუშავებს სურათს...</strong></div>
+        <div id="resultBox" class="hidden">
+          <div class="prediction-card"><small>ყველაზე მაღალი პროგნოზი</small><h2 id="prediction"></h2><b id="confidence"></b><em id="uncertain" class="hidden">დაბალი სანდოობა — საჭიროა სპეციალისტის შეფასება</em></div>
+          <h3>Top probabilities</h3><div id="probabilities"></div>
+          <a id="pdfLink" class="secondary-btn" href="#">PDF ანგარიშის ჩამოტვირთვა</a>
+          <p class="medical-warning">ეს შედეგი არ წარმოადგენს სამედიცინო დიაგნოზს.</p>
+        </div>
+        <div id="errorBox" class="flash error hidden"></div>
+      </article>
+    </section>
+
+    <section class="recent panel">
+      <div class="panel-title"><span>03</span><h2>ბოლო ანალიზები</h2></div>
+      {% if recent %}
+      <table><thead><tr><th>თარიღი</th><th>განყოფილება</th><th>შედეგი</th><th>Confidence</th><th></th></tr></thead>
+      <tbody>{% for a in recent %}<tr><td>{{ a.created_at.strftime('%Y-%m-%d %H:%M') }}</td><td>{{ a.department }}</td><td>{{ a.prediction }}</td><td>{{ '%.2f'|format(a.confidence) }}%</td><td><a href="/report/{{ a.id }}.pdf">PDF</a></td></tr>{% endfor %}</tbody></table>
+      {% else %}<p class="muted">ისტორია ჯერ ცარიელია.</p>{% endif %}
+    </section>
+  </main>
+</div>
+<script>window.DEPARTMENTS={{ departments|tojson }};</script>
+{% endblock %}
